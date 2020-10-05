@@ -1,18 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 import { useSelector } from 'react-redux'
-import {HORIZONTALS, VERITCALS, Horizontals, Verticals} from '../features/play'
+import {HORIZONTALS, VERITCALS, Horizontals, Verticals, SquareColor, getSquareColor} from '../features/board'
 
-enum SquareColor {
-  White = 'white',
-  Black = 'black',
-}
-
-const getSquareColor = (h: Horizontals, v: Verticals): SquareColor => {
-  const hi = HORIZONTALS.indexOf(h)
-  const vi = VERITCALS.indexOf(v)
-  return (hi + vi) % 2 === 0 ? SquareColor.White : SquareColor.Black
-}
 
 const TheSquare = styled.div<{ color: SquareColor }>`
   background-color: ${({ color }) => color};
@@ -28,10 +18,10 @@ interface SquareProps {
   v: Verticals
 }
 const Square: React.FC<SquareProps> = ({ h, v }) => {
-  const squareValue = useSelector(state => state.play[h][v])
-  const squareColor = getSquareColor(h, v)
+  //const squareValue = useSelector(state => state.play[h][v])
+  const squareColor = getSquareColor(v, h)
   return (
-    <TheSquare color={squareColor}>{squareValue}</TheSquare>
+    <TheSquare color={squareColor}>{v+h}</TheSquare>
   )
 }
 
