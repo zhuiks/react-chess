@@ -8,7 +8,7 @@ import {BP, BPType, WHITE_PIECES, BLACK_PIECES, SquareColor, getSquareColor} fro
 
 
 const TheSquare = styled.div<{ color: SquareColor }>`
-  background-color: ${({ color }) => color};
+  background-color: ${({ color }) => color === SquareColor.White ? 'white' : '#4e322b'};
   color: ${({ color }) => color === SquareColor.White ? 'black' : 'white'};
   display: flex;
   justify-content: center;
@@ -18,9 +18,8 @@ const TheSquare = styled.div<{ color: SquareColor }>`
   }
 `
 const ThePiece = styled.div<{ color: 'white' | 'black'}>`
-  color: ${({ color }) => color };
-  transform: scale(3.5, -3.5);
-
+  color: ${({ color }) => color === 'white' ? '#fbfae0' : '#271f27'};
+  transform: scale(4, -4);
 `
 const Square: React.FC<{pos: BP}> = ({ pos }) => {
   const squareName = BP[pos] as BPType

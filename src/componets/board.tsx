@@ -4,8 +4,8 @@ import Square from './square'
 import {HORIZONTALS, VERITCALS, BP} from '../features/board'
 
 const TheBoard = styled.section`
-  width: 90vw;
-  height: 90vw;
+  width: 90vmin;
+  height: 90vmin;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
