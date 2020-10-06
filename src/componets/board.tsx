@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import Square from './square'
 import { useDispatch } from 'react-redux'
-import { BP } from '../features/board'
+import { BP } from '../features/types'
 import { move } from "../features/play"
 
 const TheBoard = styled.section`

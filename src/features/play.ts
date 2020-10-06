@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { BoardState, INITIAL_SET, MoveType } from './board'
+import { INITIAL_SET } from './board'
+import { BoardState, MoveType } from './types'
 // const setTheBoard = ()
 // const initialState: SquareStateType[][] = 
 

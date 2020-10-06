@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChessKing, faChessQueen, faChessRook, faChessBishop, faChessKnight, faChessPawn } from '@fortawesome/free-solid-svg-icons'
 import { RootState } from '../store'
-import {BP, BPType, WHITE_PIECES, BLACK_PIECES, SquareColor, getSquareColor} from '../features/board'
+import {BP, BPType, WHITE_PIECES, BLACK_PIECES, SquareColor} from '../features/types'
+import { getSquareColor } from '../features/board'
 
 
 const TheSquare = styled.div<{ color: SquareColor }>`

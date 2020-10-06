@@ -1,4 +1,5 @@
-import { BP, getSquareColor } from '../board'
+import { BP } from '../types'
+import { getSquareColor } from '../board'
 
 describe('Features/Play', () => {
     it('calculates the right square color', () => {
