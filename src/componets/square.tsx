@@ -1,4 +1,4 @@
-import React from "react"
+import React, { DragEvent } from "react"
 import styled from "styled-components"
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,12 +14,13 @@ const TheSquare = styled.div<{ color: SquareColor }>`
   justify-content: center;
   align-items: center;
   & > div {
-    filter: drop-shadow(1px 1px 4px ${({ color }) => color === SquareColor.White ? 'rgba(0,0,0, 0.7)' : 'rgba(255,255,255, 0.7)'})
+    filter: drop-shadow(0 0 12px ${({ color }) => color === SquareColor.White ? 'rgba(0,0,0, 0.5)' : 'rgba(255,255,255, 0.5)'})
   }
 `
 const ThePiece = styled.div<{ color: 'white' | 'black'}>`
   color: ${({ color }) => color === 'white' ? '#fbfae0' : '#271f27'};
-  transform: scale(4, -4);
+  font-size: 4em;
+  transform: scaleY(-1);
 `
 const Square: React.FC<{pos: BP}> = ({ pos }) => {
   const squareName = BP[pos] as BPType
@@ -53,9 +54,13 @@ const Square: React.FC<{pos: BP}> = ({ pos }) => {
   }
 
   const squareColor = getSquareColor(pos)
+  const onDragStart = (event: DragEvent<HTMLDivElement>) => {
+
+  }
+
   return (
     <TheSquare color={squareColor}>
-        <ThePiece color={WHITE_PIECES.some(p => p === squareValue) ? 'white' : 'black'}>
+        <ThePiece draggable="true" onDragStart={onDragStart} color={WHITE_PIECES.some(p => p === squareValue) ? 'white' : 'black'}>
         { piece && 
           <FontAwesomeIcon icon={piece} />
         }
