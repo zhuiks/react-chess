@@ -8,6 +8,7 @@ const TheBoard = styled.section`
   height: 90vw;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
   transform: scaleY(-1);
 `
 

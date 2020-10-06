@@ -8,4 +8,7 @@ describe('Features/Play', () => {
         expect(getSquareColor(BP.e4)).toEqual('white')
         expect(getSquareColor(BP.d8)).toEqual('black')
     })
+    it('checks types', () => {
+        expect(typeof BP).toEqual('e1')
+    })
 })
