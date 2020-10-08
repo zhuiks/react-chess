@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { INITIAL_SET } from './board'
-import { BoardState, MoveType } from './types'
+import { BoardState, Move } from './types'
 // const setTheBoard = ()
 // const initialState: SquareStateType[][] = 
 
@@ -9,7 +9,7 @@ const playSlice = createSlice({
   name: 'play',
   initialState: INITIAL_SET as BoardState,
   reducers: {
-    move(state, action: PayloadAction<MoveType>) {
+    move(state, action: PayloadAction<Move>) {
       state[action.payload.from] = null
       state[action.payload.to] = action.payload.piece
     }

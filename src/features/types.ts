@@ -32,9 +32,11 @@ export type SquareStateType = WhitePiece | BlackPiece | null
 
 export type BoardState = Partial<Record <BPType, SquareStateType>>
 
-export interface MoveType {
+export interface MoveStart {
   piece: WhitePiece | BlackPiece
   from: BPType
+}
+export interface Move extends MoveStart {
   to: BPType
 }
 
