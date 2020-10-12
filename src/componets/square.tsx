@@ -1,7 +1,7 @@
 import React, { DragEvent } from "react"
 import styled from "styled-components"
 import { useDispatch } from 'react-redux'
-import { SquareColor, SquareStateType } from '../features/types'
+import { SquareColor } from '../features/types'
 import { dragStart } from '../features/drag'
 import Piece from './piece'
 
@@ -23,11 +23,7 @@ const TheSquare = styled.div<TheSquareProps>`
   })
   }
 `
-export interface SquareProps {
-  color: SquareColor
-  piece: SquareStateType
-}
-const Square: React.FC<SquareProps> = ({ color, piece }) => {
+const Square: React.FC<{color: SquareColor}> = ({ color, children }) => {
   // const dispatch = useDispatch()
 
   // const onDragStart = piece ? (
@@ -44,7 +40,7 @@ const Square: React.FC<SquareProps> = ({ color, piece }) => {
   return (
     <TheSquare color={color} mooving={false}>
       <div>
-        <Piece kind={piece} />
+        {children}
       </div>
     </TheSquare>
   )

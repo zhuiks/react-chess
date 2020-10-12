@@ -1,11 +1,12 @@
 import React from "react"
 import styled from "styled-components"
-import Square, { SquareProps } from './square'
+import Square from './square'
 import { useDispatch, useSelector } from 'react-redux'
-import { BP, BPType } from '../features/types'
+import { BP, BPType, SquareColor, SquareStateType } from '../features/types'
 import { move } from "../features/play"
 import { RootState } from "../store"
 import { getSquareColor } from "../features/board"
+import Piece from "./piece"
 
 const TheBoard = styled.section`
   width: 90vmin;
@@ -15,6 +16,10 @@ const TheBoard = styled.section`
   grid-template-rows: repeat(8, 1fr);
   transform: scaleY(-1);
 `
+interface SquareProps {
+  color: SquareColor
+  piece: SquareStateType
+}
 
 const Board: React.FC = () => {
   const playState = useSelector((state: RootState) => state.play)
@@ -29,7 +34,9 @@ const Board: React.FC = () => {
     <>
       <TheBoard>
         {squares.map(({piece, color}, i) => (
-          <Square key={i} color={color} piece={piece} />
+          <Square key={i} color={color} >
+            <Piece kind={piece} />
+          </Square>
         ))}
       </TheBoard>
       <button onClick={() => dispatch(move({ from: 'e2', to: 'e4', piece: '♙' }))}>Move!</button>
