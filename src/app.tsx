@@ -8,7 +8,7 @@ export const App = () => (
     <h1>
       Hello World!
     </h1>
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={ HTML5Backend }>
       <Board />
     </DndProvider>
   </>

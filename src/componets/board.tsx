@@ -6,7 +6,8 @@ import { BP, BPType, SquareColor, SquareStateType } from '../features/types'
 import { move } from "../features/play"
 import { RootState } from "../store"
 import { getSquareColor } from "../features/board"
-import Piece from "./piece"
+import DragablePiece from './dragable-piece'
+import DragedPiece from './draged-piece'
 
 const TheBoard = styled.section`
   width: 90vmin;
@@ -19,6 +20,7 @@ const TheBoard = styled.section`
 interface SquareProps {
   color: SquareColor
   piece: SquareStateType
+  pos: BPType
 }
 
 const Board: React.FC = () => {
@@ -27,17 +29,19 @@ const Board: React.FC = () => {
   const dispatch = useDispatch()
   const squares: SquareProps[] = Array.apply(null, { length: 64 }).map((n: null, i: BP) => ({
     piece: playState[BP[i] as BPType],
-    color: getSquareColor(i)
+    color: getSquareColor(i),
+    pos: BP[i] as BPType,
   }))
-    
+
   return (
     <>
       <TheBoard>
-        {squares.map(({piece, color}, i) => (
+        {squares.map(({ piece, pos, color }, i) => (
           <Square key={i} color={color} >
-            <Piece kind={piece} bgColor={color} />
+            <DragablePiece kind={piece} currentPos={pos} bgColor={color} />
           </Square>
         ))}
+        <DragedPiece />
       </TheBoard>
       <button onClick={() => dispatch(move({ from: 'e2', to: 'e4', piece: '♙' }))}>Move!</button>
     </>
