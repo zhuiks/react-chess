@@ -35,7 +35,7 @@ const Board: React.FC = () => {
       <TheBoard>
         {squares.map(({piece, color}, i) => (
           <Square key={i} color={color} >
-            <Piece kind={piece} />
+            <Piece kind={piece} bgColor={color} />
           </Square>
         ))}
       </TheBoard>

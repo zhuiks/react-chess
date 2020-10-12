@@ -44,3 +44,7 @@ export enum SquareColor {
   White = 'white',
   Black = 'black',
 }
+
+export const DragTypes = {
+  'PIECE': 'piece'
+}
