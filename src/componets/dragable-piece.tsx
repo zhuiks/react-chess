@@ -4,7 +4,9 @@ import { useDrag } from 'react-dnd'
 import styled from 'styled-components'
 import { GameColor, SquareStateType, DragTypes, BPType } from '../features/types'
 import Piece from './piece'
-import { getSquareColor } from '../features/board'
+import { getSquareColor, isWhitePiece } from '../features/board'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store'
 
 
 interface PieceStyleProps {
@@ -22,12 +24,14 @@ interface PieceProps {
 }
 
 const DragablePiece: React.FC<PieceProps> = ({ kind, currentPos }) => {
+  const currentTurn = useSelector((state: RootState) => state.game.turn)
   const [{ isDragging }, drag, preview] = useDrag({
     item: { 
       type: DragTypes.PIECE, 
       piece: kind,
       from: currentPos,
     },
+    canDrag: () => kind !== null && (isWhitePiece(kind) && currentTurn === GameColor.White || !isWhitePiece(kind) && currentTurn === GameColor.Black),
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging()
     })
