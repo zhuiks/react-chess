@@ -1,10 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-import Square from './square'
-import { useSelector } from 'react-redux'
+import SmartSquare from './square'
 import { BP, BPType, SquareStateType } from '../features/types'
-import { RootState } from "../store"
-import DragablePiece from './dragable-piece'
 import DragedPiece from './draged-piece'
 
 const TheBoard = styled.section`
@@ -20,26 +17,16 @@ interface SquareProps {
   pos: BPType
 }
 
-const Board: React.FC = () => {
-  const gameState = useSelector((state: RootState) => state.game.set)
-  const squares: SquareProps[] = Array.apply(null, { length: 64 }).map((n: null, i: BP) => ({
-    piece: gameState[BP[i] as BPType],
-    pos: BP[i] as BPType,
-  }))
-
-  return (
-    <>
-      <TheBoard>
-        {squares.map(({ piece, pos }, i) => (
-          <Square key={i} pos={pos} >
-            <DragablePiece kind={piece} currentPos={pos} />
-          </Square>
-        ))}
-        <DragedPiece />
-      </TheBoard>
-    </>
-  )
-}
+const Board: React.FC = () => (
+  <>
+    <TheBoard>
+      {Array.apply(null, { length: 64 }).map((n: null, i: BP) => (
+        <SmartSquare key={i} pos={BP[i] as BPType} />
+      ))}
+      <DragedPiece />
+    </TheBoard>
+  </>
+)
 
 
 export default Board
