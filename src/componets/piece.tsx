@@ -1,8 +1,9 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChessKing, faChessQueen, faChessRook, faChessBishop, faChessKnight, faChessPawn } from '@fortawesome/free-solid-svg-icons'
-import { SquareStateType, WHITE_PIECES } from '../features/types'
+import { SquareStateType } from '../features/types'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import { isWhitePiece } from '../features/board'
 
 const WHITE = '#fbfae0'
 const BLACK = '#271f27'
@@ -41,7 +42,7 @@ const Piece: React.FC<{kind: SquareStateType}> = ({ kind }) => {
   }
   return <FontAwesomeIcon
       icon={piece}
-      color={WHITE_PIECES.some(p => p === kind) ? WHITE : BLACK}
+      color={ isWhitePiece(kind) ? WHITE : BLACK }
       flip="vertical"
       size="4x"
     />

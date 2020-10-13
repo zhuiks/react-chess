@@ -1,4 +1,4 @@
-import { BoardState, BP, BPType, GameColor } from './types'
+import { BoardState, BP, BPType, GameColor, SquareStateType, WHITE_PIECES } from './types'
 
 
 export const INITIAL_SET: BoardState = {
@@ -14,3 +14,5 @@ const getVI = (pos: BPType) => Math.trunc(BP[pos] / 8)
 export const getSquareColor = (pos: BPType): GameColor => (
   (getHI(pos) + getVI(pos)) % 2 === 0 ? GameColor.Black : GameColor.White
 )
+
+export const isWhitePiece = (piece: SquareStateType) => WHITE_PIECES.some(p => p === piece)

@@ -1,7 +1,7 @@
 import { BP } from '../types'
-import { getSquareColor } from '../board'
+import { getSquareColor, isWhitePiece } from '../board'
 
-describe('Features/Play', () => {
+describe('Features/Board Functions', () => {
     it('calculates the right square color', () => {
         expect(getSquareColor('a1')).toEqual('black')
         expect(getSquareColor('a2')).toEqual('white')
@@ -10,6 +10,10 @@ describe('Features/Play', () => {
         expect(getSquareColor('d8')).toEqual('black')
     })
     it('checks types', () => {
-        expect(typeof BP).toEqual('e1')
+        expect(BP[4]).toEqual('e1')
+    })
+    it('checks if the piece is white', () => {
+        expect(isWhitePiece('♘')).toEqual(true)
+        expect(isWhitePiece('♚')).toEqual(false)
     })
 })
