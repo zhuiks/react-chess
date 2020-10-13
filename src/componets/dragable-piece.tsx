@@ -4,6 +4,7 @@ import { useDrag } from 'react-dnd'
 import styled from 'styled-components'
 import { SquareColor, SquareStateType, DragTypes, BPType } from '../features/types'
 import Piece from './piece'
+import { getSquareColor } from '../features/board'
 
 
 interface PieceStyleProps {
@@ -17,11 +18,10 @@ const ThePiece = styled.div<PieceStyleProps>`
 
 interface PieceProps { 
   kind: SquareStateType
-  bgColor: SquareColor
   currentPos: BPType
 }
 
-const DragablePiece: React.FC<PieceProps> = ({ kind, currentPos, bgColor }) => {
+const DragablePiece: React.FC<PieceProps> = ({ kind, currentPos }) => {
   const [{ isDragging }, drag, preview] = useDrag({
     item: { 
       type: DragTypes.PIECE, 
@@ -40,7 +40,7 @@ const DragablePiece: React.FC<PieceProps> = ({ kind, currentPos, bgColor }) => {
   if(!kind) {
     return null
   }  
-  return <ThePiece ref={drag} isDragging={isDragging} bgColor={bgColor}>
+  return <ThePiece ref={drag} isDragging={isDragging} bgColor={getSquareColor(currentPos)}>
     <Piece kind={kind} />
   </ThePiece>
 

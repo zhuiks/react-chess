@@ -1,4 +1,4 @@
-import { BoardState, BP, SquareColor } from './types'
+import { BoardState, BP, BPType, SquareColor } from './types'
 
 
 export const INITIAL_SET: BoardState = {
@@ -8,9 +8,9 @@ export const INITIAL_SET: BoardState = {
   a7: '♟︎', b7: '♟︎', c7: '♟︎', d7: '♟︎', e7: '♟︎', f7: '♟︎', g7: '♟︎', h7: '♟︎',
 }
 
-const getHI = (pos: BP) => pos % 8
-const getVI = (pos: BP) => Math.trunc(pos / 8) 
+const getHI = (pos: BPType) => BP[pos] % 8
+const getVI = (pos: BPType) => Math.trunc(BP[pos] / 8) 
 
-export const getSquareColor = (pos: BP): SquareColor => (
+export const getSquareColor = (pos: BPType): SquareColor => (
   (getHI(pos) + getVI(pos)) % 2 === 0 ? SquareColor.Black : SquareColor.White
 )

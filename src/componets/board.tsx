@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import Square from './square'
 import { useDispatch, useSelector } from 'react-redux'
-import { BP, BPType, SquareColor, SquareStateType } from '../features/types'
+import { BP, BPType, SquareStateType } from '../features/types'
 import { move } from "../features/play"
 import { RootState } from "../store"
 import { getSquareColor } from "../features/board"
@@ -18,7 +18,6 @@ const TheBoard = styled.section`
   transform: scaleY(-1);
 `
 interface SquareProps {
-  color: SquareColor
   piece: SquareStateType
   pos: BPType
 }
@@ -29,16 +28,15 @@ const Board: React.FC = () => {
   const dispatch = useDispatch()
   const squares: SquareProps[] = Array.apply(null, { length: 64 }).map((n: null, i: BP) => ({
     piece: playState[BP[i] as BPType],
-    color: getSquareColor(i),
     pos: BP[i] as BPType,
   }))
 
   return (
     <>
       <TheBoard>
-        {squares.map(({ piece, pos, color }, i) => (
-          <Square key={i} color={color} >
-            <DragablePiece kind={piece} currentPos={pos} bgColor={color} />
+        {squares.map(({ piece, pos }, i) => (
+          <Square key={i} pos={pos} >
+            <DragablePiece kind={piece} currentPos={pos} />
           </Square>
         ))}
         <DragedPiece />

@@ -38,15 +38,18 @@ const DragedPiece: React.FC = () => {
   }))
   const [offset, setOffset] = useState(zeroOffset)
   const overlayRef = useCallback(node => {
-    if (node !== null && currentOffset !== null) {
+    if (node !== null && initialOffset!== null && currentOffset !== null) {
       const boardRect = node.getBoundingClientRect()
-      console.log(`Drag: (${currentOffset.x}, ${currentOffset.y})`)
+      const sqWidth = boardRect.width / 8
+      const sqHeight = boardRect.width / 8
+      const iX = initialOffset.x - boardRect.x
+      const iY = initialOffset.y - boardRect.y
       setOffset({
-        x: currentOffset.x - boardRect.left, 
-        y: currentOffset.y - boardRect.top
+        x: Math.round((currentOffset.x - boardRect.x - iX) / sqWidth) * sqWidth + iX, 
+        y: Math.round((currentOffset.y - boardRect.y - iY) / sqHeight) * sqHeight + iY
       })
     }
-  }, [currentOffset])
+  }, [initialOffset, currentOffset])
 
   if (!isDragging || !item.piece) {
     return null

@@ -1,7 +1,9 @@
-import React, { DragEvent } from "react"
+import React from "react"
 import styled from "styled-components"
+import { useDrop } from 'react-dnd'
 import { useDispatch } from 'react-redux'
-import { SquareColor } from '../features/types'
+import { BP, BPType, DragTypes, SquareColor } from '../features/types'
+import { getSquareColor } from "../features/board"
 
 const WHITE = 'white'
 const BLACK = '#4e322b'
@@ -15,22 +17,20 @@ const TheSquare = styled.div<SquareStyleProps>`
   justify-content: center;
   align-items: center;
 `
-const Square: React.FC<{color: SquareColor}> = ({ color, children }) => {
-  // const dispatch = useDispatch()
+const Square: React.FC<{pos: BPType}> = ({ pos, children }) => {
 
-  // const onDragStart = piece ? (
-  //   (event: DragEvent<HTMLDivElement>) => {
-  //     const svg = event.currentTarget.children[0]
-  //     event.dataTransfer.setDragImage(svg, 0, 0)
-  //     dispatch(dragStart({
-  //       from: BP[pos] as BPType,
-  //       piece: squareValue
-  //     }))
-  //   })
-  //   : null
-
+  const [{ isOver, canDrop }, drop] = useDrop({
+    accept: DragTypes.PIECE,
+    // canDrop: () => {},
+    drop: (item) => {},
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop(),
+    }),
+  })
+  
   return (
-    <TheSquare color={color}>
+    <TheSquare ref={drop} color={getSquareColor(pos)}>
         {children}
     </TheSquare>
   )
