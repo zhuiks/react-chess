@@ -40,7 +40,7 @@ export interface Move extends MoveStart {
   to: BPType
 }
 
-export enum SquareColor {
+export enum GameColor {
   White = 'white',
   Black = 'black',
 }

@@ -2,18 +2,18 @@ import React, { useEffect } from 'react'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { useDrag } from 'react-dnd'
 import styled from 'styled-components'
-import { SquareColor, SquareStateType, DragTypes, BPType } from '../features/types'
+import { GameColor, SquareStateType, DragTypes, BPType } from '../features/types'
 import Piece from './piece'
 import { getSquareColor } from '../features/board'
 
 
 interface PieceStyleProps {
-  bgColor: SquareColor
+  bgColor: GameColor
   isDragging: boolean
 }
 const ThePiece = styled.div<PieceStyleProps>`
   filter: ${({ isDragging }) => isDragging ? 'opacity(0.3)' : ''} drop-shadow(0 0 ${({ isDragging }) => isDragging ? '1' : '12'}px ${({ bgColor }) =>
-  bgColor === SquareColor.White ? 'rgba(0,0,0, 0.5)' : 'rgba(255,255,255, 0.5)'})
+  bgColor === GameColor.White ? 'rgba(0,0,0, 0.5)' : 'rgba(255,255,255, 0.5)'})
 `
 
 interface PieceProps { 

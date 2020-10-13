@@ -1,9 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 import Square from './square'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { BP, BPType, SquareStateType } from '../features/types'
-import { move } from "../features/play"
 import { RootState } from "../store"
 import DragablePiece from './dragable-piece'
 import DragedPiece from './draged-piece'
@@ -22,9 +21,9 @@ interface SquareProps {
 }
 
 const Board: React.FC = () => {
-  const playState = useSelector((state: RootState) => state.play)
+  const gameState = useSelector((state: RootState) => state.game.set)
   const squares: SquareProps[] = Array.apply(null, { length: 64 }).map((n: null, i: BP) => ({
-    piece: playState[BP[i] as BPType],
+    piece: gameState[BP[i] as BPType],
     pos: BP[i] as BPType,
   }))
 

@@ -2,18 +2,18 @@ import React from "react"
 import styled from "styled-components"
 import { useDrop } from 'react-dnd'
 import { useDispatch } from 'react-redux'
-import { BPType, DragTypes, SquareColor } from '../features/types'
-import { move } from "../features/play"
+import { BPType, DragTypes, GameColor } from '../features/types'
+import { move } from "../features/game"
 import { getSquareColor } from "../features/board"
 
 const WHITE = 'white'
 const BLACK = '#4e322b'
 interface SquareStyleProps {
-  color: SquareColor
+  color: GameColor
 }
 const TheSquare = styled.div<SquareStyleProps>`
-  background-color: ${({ color }) => color === SquareColor.White ? WHITE : BLACK};
-  color: ${({ color }) => color === SquareColor.White ? 'black' : 'white'};
+  background-color: ${({ color }) => color === GameColor.White ? WHITE : BLACK};
+  color: ${({ color }) => color === GameColor.White ? 'black' : 'white'};
   display: flex;
   justify-content: center;
   align-items: center;

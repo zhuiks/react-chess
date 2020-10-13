@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import { configureStore } from '@reduxjs/toolkit'
-import playReducer from './features/play'
+import gameReducer from './features/game'
 import dragReducer from './features/drag'
 
 const rootReducer = combineReducers({
-  play: playReducer,
+  game: gameReducer,
   drag: dragReducer,
 })
 const store = configureStore({
