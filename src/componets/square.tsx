@@ -7,6 +7,7 @@ import { move } from "../features/game"
 import { getSquareColor } from "../features/board"
 import { RootState } from "../store"
 import DragablePiece from "./dragable-piece"
+import canMove from '../features/can-move'
 
 const WHITE = 'white'
 const BLACK = '#4e322b'
@@ -20,12 +21,11 @@ const TheSquare = styled.div<SquareStyleProps>`
   justify-content: center;
   align-items: center;
 `
-const SmartSquare: React.FC<{ pos: BPType }> = ({ pos, children }) => {
-  const gameState = useSelector((state: RootState) => state.game.set)
+const SmartSquare: React.FC<{ pos: BPType }> = ({ pos }) => {
   const dispatch = useDispatch()
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: DragTypes.PIECE,
-    // canDrop: () => {},
+    canDrop: canMove,
     drop: (item: any) => {
       console.log('trying to drop')
       const res = {
@@ -44,7 +44,7 @@ const SmartSquare: React.FC<{ pos: BPType }> = ({ pos, children }) => {
 
   return (
     <TheSquare ref={drop} color={getSquareColor(pos)}>
-      <DragablePiece kind={gameState[pos]} currentPos={pos} />
+      <DragablePiece currentPos={pos} />
     </TheSquare>
   )
 }

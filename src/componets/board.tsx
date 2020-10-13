@@ -12,10 +12,6 @@ const TheBoard = styled.section`
   grid-template-rows: repeat(8, 1fr);
   transform: scaleY(-1);
 `
-interface SquareProps {
-  piece: SquareStateType
-  pos: BPType
-}
 
 const Board: React.FC = () => (
   <>

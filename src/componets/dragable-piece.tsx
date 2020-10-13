@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { useDrag } from 'react-dnd'
 import styled from 'styled-components'
-import { GameColor, SquareStateType, DragTypes, BPType } from '../features/types'
+import { GameColor, DragTypes, BPType } from '../features/types'
 import Piece from './piece'
 import { getSquareColor, isWhitePiece } from '../features/board'
 import { useSelector } from 'react-redux'
@@ -19,19 +19,19 @@ const ThePiece = styled.div<PieceStyleProps>`
 `
 
 interface PieceProps { 
-  kind: SquareStateType
   currentPos: BPType
 }
 
-const DragablePiece: React.FC<PieceProps> = ({ kind, currentPos }) => {
+const DragablePiece: React.FC<PieceProps> = ({ currentPos }) => {
+  const piece = useSelector((state: RootState) => state.game.set[currentPos])
   const currentTurn = useSelector((state: RootState) => state.game.turn)
   const [{ isDragging }, drag, preview] = useDrag({
     item: { 
       type: DragTypes.PIECE, 
-      piece: kind,
+      piece,
       from: currentPos,
     },
-    canDrag: () => kind !== null && (isWhitePiece(kind) && currentTurn === GameColor.White || !isWhitePiece(kind) && currentTurn === GameColor.Black),
+    canDrag: () => piece !== null && (isWhitePiece(piece) && currentTurn === GameColor.White || !isWhitePiece(piece) && currentTurn === GameColor.Black),
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging()
     })
@@ -41,11 +41,11 @@ const DragablePiece: React.FC<PieceProps> = ({ kind, currentPos }) => {
     preview(getEmptyImage(), { captureDraggingState: true })
   }, [])
 
-  if(!kind) {
+  if(!piece) {
     return null
   }  
   return <ThePiece ref={drag} isDragging={isDragging} bgColor={getSquareColor(currentPos)}>
-    <Piece kind={kind} />
+    <Piece kind={piece} />
   </ThePiece>
 
 }
