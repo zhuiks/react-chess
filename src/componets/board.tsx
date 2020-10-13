@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { BP, BPType, SquareStateType } from '../features/types'
 import { move } from "../features/play"
 import { RootState } from "../store"
-import { getSquareColor } from "../features/board"
 import DragablePiece from './dragable-piece'
 import DragedPiece from './draged-piece'
 
@@ -24,8 +23,6 @@ interface SquareProps {
 
 const Board: React.FC = () => {
   const playState = useSelector((state: RootState) => state.play)
-  // const draggingFrom = useSelector((state: RootState) => state.drag.from)
-  const dispatch = useDispatch()
   const squares: SquareProps[] = Array.apply(null, { length: 64 }).map((n: null, i: BP) => ({
     piece: playState[BP[i] as BPType],
     pos: BP[i] as BPType,
@@ -41,7 +38,6 @@ const Board: React.FC = () => {
         ))}
         <DragedPiece />
       </TheBoard>
-      <button onClick={() => dispatch(move({ from: 'e2', to: 'e4', piece: '♙' }))}>Move!</button>
     </>
   )
 }
