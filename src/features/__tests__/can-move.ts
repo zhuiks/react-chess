@@ -1,41 +1,72 @@
+import { getPieceColor } from '../board'
 import canMove from '../can-move'
 import { BoardState, BPType, Move, MoveStart, SquareStateType } from '../types'
 
-const getOnePieceBoardOptions = (piece: SquareStateType, from: BPType) => {
+const getMoveOptions = (piece: SquareStateType, from: BPType, additionalPieces: BoardState = {}) => {
   const set: BoardState = {
+    ...additionalPieces,
     [from]: piece
   }
   return canMove(piece, from, set)
 }
 describe('Features/Move Options', () => {
-  describe('Pawn', ()=>{
+  it('checks for capture', () => {
+    const set: BoardState = {
+      e4: '♗'
+    }
+    expect(getPieceColor(set.e4) && getPieceColor(set.e4) !== getPieceColor('♛')).toEqual(true)
+    expect(getPieceColor(set.e4) && getPieceColor(set.e4) !== getPieceColor('♖')).toEqual(false)
+  })
+  describe('Pawn', () => {
     const piece: SquareStateType = '♙'
     it('can move two squares up', () => {
-      const options = getOnePieceBoardOptions(piece, 'e2')
+      const options = getMoveOptions(piece, 'e2')
       expect(options).toContain('e3')
       expect(options).toContain('e4')
     })
     it('can move only one square up', () => {
-      const options = getOnePieceBoardOptions(piece, 'a5')
+      const options = getMoveOptions(piece, 'a5')
       expect(options).toContain('a6')
       expect(options).not.toContain('a7')
     })
   })
-  describe('Rook', ()=>{
+  describe('Rook', () => {
     const piece: SquareStateType = '♜'
-    it('can move verticaly', ()=>{
-      const set: BoardState = {
-        f5: '♜'
-      }
-      const options = getOnePieceBoardOptions(piece, 'f5')
-      expect(options).toContain('f6')
-      expect(options).toContain('f7')
-      expect(options).toContain('f8')
-      expect(options).toContain('f1')
+    it('can move verticaly and horizontaly', () => {
+      const options = getMoveOptions(piece, 'c2')
+      expect(options).toContain('c3')
+      expect(options).toContain('c4')
+      expect(options).toContain('c5')
+      expect(options).toContain('c6')
+      expect(options).toContain('c7')
+      expect(options).toContain('c8')
+      expect(options).toContain('c1')
+
+      expect(options).toContain('d2')
+      expect(options).toContain('e2')
       expect(options).toContain('f2')
-      expect(options).toContain('f3')
-      expect(options).toContain('f4')
-      expect(options).toHaveLength(7)
+      expect(options).toContain('g2')
+      expect(options).toContain('h2')
+      expect(options).toContain('b2')
+      expect(options).toContain('a2')
+      expect(options).toHaveLength(14)
+    })
+    it('will not move if other piece in the way', () => {
+      const options = getMoveOptions(piece, 'd6', {
+        a6: '♟︎',
+        d8: '♛',
+        f6: '♙',
+        d3: '♗',
+      })
+      expect(options).toContain('d7')
+      expect(options).not.toContain('d8')
+      expect(options).toContain('c6')
+      expect(options).not.toContain('a6')
+      expect(options).toContain('d3')
+      expect(options).not.toContain('d2')
+      expect(options).not.toContain('d1')
+      expect(options).toContain('f6')
+      expect(options).not.toContain('g6')
     })
   })
 })
