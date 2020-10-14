@@ -5,8 +5,9 @@ import styled from 'styled-components'
 import { GameColor, DragTypes, BPType } from '../features/types'
 import Piece from './piece'
 import { getSquareColor, isWhitePiece } from '../features/board'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../store'
+import { moveStart } from '../features/game'
 
 
 interface PieceStyleProps {
@@ -25,11 +26,17 @@ interface PieceProps {
 const DragablePiece: React.FC<PieceProps> = ({ currentPos }) => {
   const piece = useSelector((state: RootState) => state.game.set[currentPos])
   const turn = useSelector((state: RootState) => state.game.turn)
+  const dispatch = useDispatch()
+
   const [{ isDragging }, drag, preview] = useDrag({
     item: { 
       type: DragTypes.PIECE, 
       piece,
       from: currentPos,
+    },
+    begin: () => {
+      //const { piece, from } = monitor.getItem()
+      dispatch(moveStart({piece, from: currentPos}))
     },
     canDrag: () => piece !== null && (isWhitePiece(piece) && turn === GameColor.White || !isWhitePiece(piece) && turn === GameColor.Black),
     collect: (monitor) => ({

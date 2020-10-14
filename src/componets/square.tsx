@@ -22,11 +22,11 @@ const TheSquare = styled.div<SquareStyleProps>`
   align-items: center;
 `
 const SmartSquare: React.FC<{ pos: BPType }> = ({ pos }) => {
-  const gameState = useSelector((state: RootState) => state.game)
+  const moveOptions = useSelector((state: RootState) => state.game.moveOptions)
   const dispatch = useDispatch()
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: DragTypes.PIECE,
-    canDrop: (item) => canMove(item.piece, item.from, pos, gameState),
+    canDrop: () => moveOptions.includes(pos),
     drop: (item: any) => {
       console.log('trying to drop')
       const res = {
