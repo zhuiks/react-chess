@@ -11,10 +11,11 @@ const gameSlice = createSlice({
   },
   reducers: {
     move(state, action: PayloadAction<Move>) {
-      if (action.payload.piece !== null && action.payload.to !== action.payload.from) {
-        state.set[action.payload.from] = null
-        state.set[action.payload.to] = action.payload.piece
-        state.turn = isWhitePiece(action.payload.piece) ? GameColor.Black : GameColor.White
+      const {piece, from, to } = action.payload
+      if (piece !== null && to !== from) {
+        state.set[from] = null
+        state.set[to] = piece
+        state.turn = isWhitePiece(piece) ? GameColor.Black : GameColor.White
       }
     }
   }
