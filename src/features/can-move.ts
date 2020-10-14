@@ -1,14 +1,25 @@
-import { isWhitePiece } from "./board"
+import { getHI, getVI, isWhitePiece } from "./board"
 import { BoardState, BP, BPType, Move, SquareStateType } from "./types"
 
 const canMove = (piece: SquareStateType, from: BPType, boardSet: BoardState) => {
   let options: BPType[] = []
-  switch(piece) {
+  const moveVerticaly = (n: number) => BP[BP[from] + n * 8] as BPType
+  const addIfEmpty = (pos: BPType) => {
+    if (!boardSet[pos]) {
+      options.push(pos)
+    }
+  }
+  switch (piece) {
     case '♙':
-      const mv = BP[BP[from] + 8] as BPType
-      console.log(boardSet[mv])
-      if(!boardSet[mv]) {
-        options.push(mv)
+      addIfEmpty(moveVerticaly(1))
+      if (getVI(from) === 1) {
+        addIfEmpty(moveVerticaly(2))
+      }
+      break
+    case '♟︎':
+      addIfEmpty(moveVerticaly(-1))
+      if (getVI(from) === 6) {
+        addIfEmpty(moveVerticaly(-2))
       }
       break
     default:

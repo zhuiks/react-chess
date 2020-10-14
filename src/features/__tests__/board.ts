@@ -1,5 +1,5 @@
 import { BP } from '../types'
-import { getSquareColor, isWhitePiece } from '../board'
+import { getHI, getSquareColor, getVI, isWhitePiece } from '../board'
 
 describe('Features/Board Functions', () => {
     it('calculates the right square color', () => {
@@ -15,5 +15,8 @@ describe('Features/Board Functions', () => {
     it('checks if the piece is white', () => {
         expect(isWhitePiece('♘')).toEqual(true)
         expect(isWhitePiece('♚')).toEqual(false)
+    })
+    it('calculates vertical index', () => {
+        expect(getVI('h2')).toEqual(1)
     })
 })

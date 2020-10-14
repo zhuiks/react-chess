@@ -8,8 +8,8 @@ export const INITIAL_SET: BoardState = {
   a7: '♟︎', b7: '♟︎', c7: '♟︎', d7: '♟︎', e7: '♟︎', f7: '♟︎', g7: '♟︎', h7: '♟︎',
 }
 
-const getHI = (pos: BPType) => BP[pos] % 8
-const getVI = (pos: BPType) => Math.trunc(BP[pos] / 8) 
+export const getHI = (pos: BPType) => BP[pos] % 8
+export const getVI = (pos: BPType) => Math.trunc(BP[pos] / 8) 
 
 export const getSquareColor = (pos: BPType): GameColor => (
   (getHI(pos) + getVI(pos)) % 2 === 0 ? GameColor.Black : GameColor.White
