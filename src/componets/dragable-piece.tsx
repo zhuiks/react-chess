@@ -23,15 +23,15 @@ interface PieceProps {
 }
 
 const DragablePiece: React.FC<PieceProps> = ({ currentPos }) => {
-  const piece = useSelector((state: RootState) => state.game.set[currentPos])
-  const currentTurn = useSelector((state: RootState) => state.game.turn)
+  const gameState = useSelector((state: RootState) => state.game)
+  const piece = gameState.set[currentPos]
   const [{ isDragging }, drag, preview] = useDrag({
     item: { 
       type: DragTypes.PIECE, 
       piece,
       from: currentPos,
     },
-    canDrag: () => piece !== null && (isWhitePiece(piece) && currentTurn === GameColor.White || !isWhitePiece(piece) && currentTurn === GameColor.Black),
+    canDrag: () => piece !== null && (isWhitePiece(piece) && gameState.turn === GameColor.White || !isWhitePiece(piece) && gameState.turn === GameColor.Black),
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging()
     })
