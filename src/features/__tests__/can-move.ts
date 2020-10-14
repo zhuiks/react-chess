@@ -69,4 +69,20 @@ describe('Features/Move Options', () => {
       expect(options).not.toContain('g6')
     })
   })
+  describe('Bishop', ()=>{
+    const piece: SquareStateType = '♗'
+    it('can move diagonaly', () => {
+      const options = getMoveOptions(piece, 'f2')
+      expect(options).toContain('e1')
+      expect(options).toContain('g3')
+      expect(options).toContain('h4')
+      expect(options).not.toContain('a6')
+      expect(options).not.toContain('d2')
+
+      expect(options).toContain('e3')
+      expect(options).toContain('a7')
+      expect(options).toContain('g1')
+      expect(options).toHaveLength(9)
+    })  
+  })
 })
