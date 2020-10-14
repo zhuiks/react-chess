@@ -1,6 +1,7 @@
 import { bindActionCreators, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { INITIAL_SET, isWhitePiece } from './board'
 import { BoardState, BPType, GameColor, Move, MoveStart } from './types'
+import canMove from './can-move'
 
 export interface GameState {
   set: BoardState
@@ -24,11 +25,12 @@ const gameSlice = createSlice({
         state.set[from] = null
         state.set[to] = piece
         state.turn = isWhitePiece(piece) ? GameColor.Black : GameColor.White
+        state.moveOptions = []
       }
     },
     moveStart(state, action: PayloadAction<MoveStart>) {
-      // state.from = action.payload.from
-      // state.piece = action.payload.piece
+      const {piece, from} = action.payload
+      state.moveOptions = canMove(piece, from, state.set)
     },
   }
 })

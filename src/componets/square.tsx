@@ -7,12 +7,12 @@ import { move } from "../features/game"
 import { getSquareColor } from "../features/board"
 import { RootState } from "../store"
 import DragablePiece from "./dragable-piece"
-import canMove from '../features/can-move'
 
 const WHITE = 'white'
 const BLACK = '#4e322b'
 interface SquareStyleProps {
   color: GameColor
+  highlight: boolean
 }
 const TheSquare = styled.div<SquareStyleProps>`
   background-color: ${({ color }) => color === GameColor.White ? WHITE : BLACK};
@@ -20,6 +20,7 @@ const TheSquare = styled.div<SquareStyleProps>`
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: ${ ({ highlight }) => highlight ? 'inset 0 0 30px #8de303d6' : 'none'};
 `
 const SmartSquare: React.FC<{ pos: BPType }> = ({ pos }) => {
   const moveOptions = useSelector((state: RootState) => state.game.moveOptions)
@@ -44,7 +45,7 @@ const SmartSquare: React.FC<{ pos: BPType }> = ({ pos }) => {
   })
 
   return (
-    <TheSquare ref={drop} color={getSquareColor(pos)}>
+    <TheSquare ref={drop} color={getSquareColor(pos)} highlight={moveOptions.includes(pos)}>
       <DragablePiece currentPos={pos} />
     </TheSquare>
   )

@@ -35,8 +35,9 @@ const DragablePiece: React.FC<PieceProps> = ({ currentPos }) => {
       from: currentPos,
     },
     begin: () => {
-      //const { piece, from } = monitor.getItem()
-      dispatch(moveStart({piece, from: currentPos}))
+      if(piece) {
+        dispatch(moveStart({piece, from: currentPos}))
+      }
     },
     canDrag: () => piece !== null && (isWhitePiece(piece) && turn === GameColor.White || !isWhitePiece(piece) && turn === GameColor.Black),
     collect: (monitor) => ({
