@@ -10,9 +10,12 @@ import DragablePiece from "./dragable-piece"
 
 const WHITE = 'white'
 const BLACK = '#4e322b'
+const GREEN = '#8de303d6'
+const RED = '#e30303a8'
+
 interface SquareStyleProps {
   color: GameColor
-  highlight: boolean
+  highlight: typeof GREEN | typeof RED | 'none'
 }
 const TheSquare = styled.div<SquareStyleProps>`
   background-color: ${({ color }) => color === GameColor.White ? WHITE : BLACK};
@@ -20,12 +23,12 @@ const TheSquare = styled.div<SquareStyleProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: ${ ({ highlight }) => highlight ? 'inset 0 0 30px #8de303d6' : 'none'};
+  box-shadow: ${ ({ highlight }) => highlight === 'none' ? 'none' : `inset 0 0 30px ${highlight}`};
 `
 const SmartSquare: React.FC<{ pos: BPType }> = ({ pos }) => {
   const moveOptions = useSelector((state: RootState) => state.game.moveOptions)
   const dispatch = useDispatch()
-  const [{ isOver, canDrop }, drop] = useDrop({
+  const [{ isOver, canDrop, dragItem }, drop] = useDrop({
     accept: DragTypes.PIECE,
     canDrop: () => moveOptions.includes(pos),
     drop: (item: any) => {
@@ -41,11 +44,12 @@ const SmartSquare: React.FC<{ pos: BPType }> = ({ pos }) => {
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
       canDrop: !!monitor.canDrop(),
+      dragItem: monitor.getItem(),
     }),
   })
-
+  const highlight = dragItem && dragItem.from !== pos && moveOptions.includes(pos) ? GREEN : isOver && !canDrop ? RED : 'none'
   return (
-    <TheSquare ref={drop} color={getSquareColor(pos)} highlight={moveOptions.includes(pos)}>
+    <TheSquare ref={drop} color={getSquareColor(pos)} highlight={highlight}>
       <DragablePiece currentPos={pos} />
     </TheSquare>
   )

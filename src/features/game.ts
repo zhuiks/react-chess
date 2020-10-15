@@ -34,7 +34,7 @@ const gameSlice = createSlice({
     },
     moveStart(state, action: PayloadAction<MoveStart>) {
       const {piece, from} = action.payload
-      state.moveOptions = canMove(piece, from, state.set)
+      state.moveOptions = [...canMove(piece, from, state.set), from]
     },
   }
 })

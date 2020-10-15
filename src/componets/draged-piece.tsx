@@ -16,7 +16,7 @@ const StyledDrag = styled.div<{ offset: XYCoord }>`
   position: absolute;
   bottom: ${({ offset }) => offset.y}px;
   left: ${({ offset }) => offset.x}px;
-  transform: rotate(10deg);
+  transform: rotate(-10deg);
 `
 const zeroOffset:XYCoord = {
   x: 0,
