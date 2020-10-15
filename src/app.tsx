@@ -6,7 +6,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 export const App = () => (
   <>
     <h1>
-      Hello World!
+      Welcome To The Game!
     </h1>
     <DndProvider backend={ HTML5Backend }>
       <Board />
