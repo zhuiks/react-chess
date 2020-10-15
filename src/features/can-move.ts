@@ -64,11 +64,23 @@ const canMove = (piece: SquareStateType, from: BPType, boardSet: BoardState) => 
       if (getHI(from) === 1 && isEmpty(moveVerticaly(1))) {
         allowIfEmpty(moveVerticaly(2))
       }
+      if(isCapture(moveDiagonalyA(1))) {
+        allow(moveDiagonalyA(1))
+      }
+      if(isCapture(moveDiagonalyH(1))) {
+        allow(moveDiagonalyH(1))
+      }
       break
     case '♟︎':
       allowIfEmpty(moveVerticaly(-1))
       if (getHI(from) === 6 && isEmpty(moveVerticaly(-1))) {
         allowIfEmpty(moveVerticaly(-2))
+      }
+      if(isCapture(moveDiagonalyA(-1))) {
+        allow(moveDiagonalyA(-1))
+      }
+      if(isCapture(moveDiagonalyH(-1))) {
+        allow(moveDiagonalyH(-1))
       }
       break
     case '♖':
