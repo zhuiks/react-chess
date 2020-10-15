@@ -9,6 +9,10 @@ export interface GameState {
   moveOptions: BPType[]
 }
 
+// const set: BoardState = {
+//   a2: '♔',
+//   e4: '♞',
+// }
 const initialState: GameState ={
   set: INITIAL_SET as BoardState,
   turn: GameColor.White,

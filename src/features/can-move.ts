@@ -12,13 +12,12 @@ const canMove = (piece: SquareStateType, from: BPType, boardSet: BoardState) => 
   }
   // const moveDiagonalyA: MoveFunc = (n) => moveHorizontaly(n, moveVerticaly(n))
   const moveDiagonalyA: MoveFunc = (n) => {
-    const res = BP[BP[from] + n + n*8] as BPType
-    return n > 0 && getVI(res) > getVI(from) && getHI(res) > getHI(from) || n < 0 && getVI(res) < getVI(from) && getHI(res) < getHI(from) ? res : undefined 
+    const res = BP[BP[from] + n + n * 8] as BPType
+    return n > 0 && getVI(res) > getVI(from) && getHI(res) > getHI(from) || n < 0 && getVI(res) < getVI(from) && getHI(res) < getHI(from) ? res : undefined
   }
   const moveDiagonalyH: MoveFunc = (n) => {
-    const res = BP[BP[from] - n + n*8] as BPType
-    console.log(res)
-    return n > 0 && getVI(res) < getVI(from) && getHI(res) > getHI(from) || n < 0 && getVI(res) > getVI(from) && getHI(res) < getHI(from) ? res : undefined 
+    const res = BP[BP[from] - n + n * 8] as BPType
+    return n > 0 && getVI(res) < getVI(from) && getHI(res) > getHI(from) || n < 0 && getVI(res) > getVI(from) && getHI(res) < getHI(from) ? res : undefined
   }
 
   const allow = (pos: BPType) => {
@@ -84,34 +83,65 @@ const canMove = (piece: SquareStateType, from: BPType, boardSet: BoardState) => 
     case '♛':
       rookLoops()
       bishopLoops()
-      break    
+      break
     case '♔':
     case '♚':
-      if(isLegitMove(moveVerticaly(1))) {
+      if (isLegitMove(moveVerticaly(1))) {
         allow(moveVerticaly(1))
       }
-      if(isLegitMove(moveVerticaly(-1))) {
+      if (isLegitMove(moveVerticaly(-1))) {
         allow(moveVerticaly(-1))
       }
-      if(isLegitMove(moveHorizontaly(1))) {
+      if (isLegitMove(moveHorizontaly(1))) {
         allow(moveHorizontaly(1))
       }
-      if(isLegitMove(moveHorizontaly(-1))) {
+      if (isLegitMove(moveHorizontaly(-1))) {
         allow(moveHorizontaly(-1))
       }
-      if(isLegitMove(moveDiagonalyA(1))) {
+      if (isLegitMove(moveDiagonalyA(1))) {
         allow(moveDiagonalyA(1))
       }
-      if(isLegitMove(moveDiagonalyA(-1))) {
+      if (isLegitMove(moveDiagonalyA(-1))) {
         allow(moveDiagonalyA(-1))
       }
-      if(isLegitMove(moveDiagonalyH(1))) {
+      if (isLegitMove(moveDiagonalyH(1))) {
         allow(moveDiagonalyH(1))
       }
-      if(isLegitMove(moveDiagonalyH(-1))) {
+      if (isLegitMove(moveDiagonalyH(-1))) {
         allow(moveDiagonalyH(-1))
       }
-      break        
+      break
+    case '♘':
+    case '♞':
+      let knightHalfMove = moveVerticaly(2)
+      if (knightHalfMove && isLegitMove(moveHorizontaly(1, knightHalfMove))) {
+        allow(moveHorizontaly(1, knightHalfMove))
+      }
+      if (knightHalfMove && isLegitMove(moveHorizontaly(-1, knightHalfMove))) {
+        allow(moveHorizontaly(-1, knightHalfMove))
+      }
+      knightHalfMove = moveVerticaly(-2)
+      if (knightHalfMove && isLegitMove(moveHorizontaly(1, knightHalfMove))) {
+        allow(moveHorizontaly(1, knightHalfMove))
+      }
+      if (knightHalfMove && isLegitMove(moveHorizontaly(-1, knightHalfMove))) {
+        allow(moveHorizontaly(-1, knightHalfMove))
+      }
+      knightHalfMove = moveVerticaly(1)
+      if (knightHalfMove && isLegitMove(moveHorizontaly(2, knightHalfMove))) {
+        allow(moveHorizontaly(2, knightHalfMove))
+      }
+      if (knightHalfMove && isLegitMove(moveHorizontaly(-2, knightHalfMove))) {
+        allow(moveHorizontaly(-2, knightHalfMove))
+      }
+      knightHalfMove = moveVerticaly(-1)
+      if (knightHalfMove && isLegitMove(moveHorizontaly(2, knightHalfMove))) {
+        allow(moveHorizontaly(2, knightHalfMove))
+      }
+      if (knightHalfMove && isLegitMove(moveHorizontaly(-2, knightHalfMove))) {
+        allow(moveHorizontaly(-2, knightHalfMove))
+      }
+      break
     default:
       return []
   }

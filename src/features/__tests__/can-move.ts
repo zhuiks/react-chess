@@ -69,7 +69,7 @@ describe('Features/Move Options', () => {
       expect(options).not.toContain('g6')
     })
   })
-  describe('Bishop', ()=>{
+  describe('Bishop', () => {
     const piece: SquareStateType = '♗'
     it('can move diagonaly', () => {
       const options = getMoveOptions(piece, 'f2')
@@ -83,11 +83,11 @@ describe('Features/Move Options', () => {
       expect(options).toContain('a7')
       expect(options).toContain('g1')
       expect(options).toHaveLength(9)
-    })  
+    })
   })
-  describe('King', ()=>{
+  describe('King', () => {
     const piece: SquareStateType = '♔'
-    it('can move in all directions', ()=>{
+    it('can move in all directions', () => {
       const options = getMoveOptions(piece, 'e4')
       expect(options).toContain('e5')
       expect(options).toContain('e3')
@@ -100,6 +100,23 @@ describe('Features/Move Options', () => {
       expect(options).toContain('f3')
 
       expect(options).toHaveLength(8)
+    })
+  })
+  describe('Knight', () => {
+    const piece: SquareStateType = '♞'
+    it('can jump in all directions', () => {
+      const options = getMoveOptions(piece, 'e4')
+      expect(options).toContain('f6')
+      expect(options).toContain('d6')
+
+      expect(options).toContain('f2')
+      expect(options).toContain('d2')
+
+      expect(options).toContain('g5')
+      expect(options).toContain('c5')
+
+      expect(options).toContain('g3')
+      expect(options).toContain('c3')
     })
   })
 })
