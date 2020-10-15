@@ -85,4 +85,21 @@ describe('Features/Move Options', () => {
       expect(options).toHaveLength(9)
     })  
   })
+  describe('King', ()=>{
+    const piece: SquareStateType = '♔'
+    it('can move in all directions', ()=>{
+      const options = getMoveOptions(piece, 'e4')
+      expect(options).toContain('e5')
+      expect(options).toContain('e3')
+      expect(options).toContain('f4')
+      expect(options).toContain('d4')
+
+      expect(options).toContain('f5')
+      expect(options).toContain('d3')
+      expect(options).toContain('d5')
+      expect(options).toContain('f3')
+
+      expect(options).toHaveLength(8)
+    })
+  })
 })

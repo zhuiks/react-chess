@@ -32,17 +32,31 @@ const canMove = (piece: SquareStateType, from: BPType, boardSet: BoardState) => 
     }
   }
 
+  const isLegitMove = (pos: BPType) => pos && (isEmpty(pos) || isCapture(pos))
   const loop = (moveFunc: MoveFunc, decrement: boolean = false) => {
     let wasCapture = false
     for (let i = 1; i < 8; i++) {
       const nextPos = moveFunc(decrement ? -i : i)
-      if (nextPos && !wasCapture && (isEmpty(nextPos) || isCapture(nextPos))) {
+      if (!wasCapture && isLegitMove(nextPos)) {
         allow(nextPos)
         wasCapture = isCapture(nextPos)
       } else {
         break
       }
     }
+  }
+
+  const rookLoops = () => {
+    loop(moveVerticaly)
+    loop(moveVerticaly, true)
+    loop(moveHorizontaly)
+    loop(moveHorizontaly, true)
+  }
+  const bishopLoops = () => {
+    loop(moveDiagonalyA)
+    loop(moveDiagonalyA, true)
+    loop(moveDiagonalyH)
+    loop(moveDiagonalyH, true)
   }
 
   switch (piece) {
@@ -60,18 +74,44 @@ const canMove = (piece: SquareStateType, from: BPType, boardSet: BoardState) => 
       break
     case '♖':
     case '♜':
-      loop(moveVerticaly)
-      loop(moveVerticaly, true)
-      loop(moveHorizontaly)
-      loop(moveHorizontaly, true)
+      rookLoops()
       break
     case '♗':
     case '♝':
-      loop(moveDiagonalyA)
-      loop(moveDiagonalyA, true)
-      loop(moveDiagonalyH)
-      loop(moveDiagonalyH, true)
+      bishopLoops()
+      break
+    case '♕':
+    case '♛':
+      rookLoops()
+      bishopLoops()
       break    
+    case '♔':
+    case '♚':
+      if(isLegitMove(moveVerticaly(1))) {
+        allow(moveVerticaly(1))
+      }
+      if(isLegitMove(moveVerticaly(-1))) {
+        allow(moveVerticaly(-1))
+      }
+      if(isLegitMove(moveHorizontaly(1))) {
+        allow(moveHorizontaly(1))
+      }
+      if(isLegitMove(moveHorizontaly(-1))) {
+        allow(moveHorizontaly(-1))
+      }
+      if(isLegitMove(moveDiagonalyA(1))) {
+        allow(moveDiagonalyA(1))
+      }
+      if(isLegitMove(moveDiagonalyA(-1))) {
+        allow(moveDiagonalyA(-1))
+      }
+      if(isLegitMove(moveDiagonalyH(1))) {
+        allow(moveDiagonalyH(1))
+      }
+      if(isLegitMove(moveDiagonalyH(-1))) {
+        allow(moveDiagonalyH(-1))
+      }
+      break        
     default:
       return []
   }
